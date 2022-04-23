@@ -7,14 +7,17 @@ import { useNavigate } from 'react-router-dom'
 import Checkbox from '@mui/material/Checkbox'
 import { Typography } from '@mui/material'
 import PartyInfo from './PartyInfo'
+import axios from 'axios'
+const serverURL = process.env.REACT_APP_SERVER_URI
 
-function Register() {
+function Register({ code, setNewCode }) {
   const [gender, setGender] = useState('')
   const [nameText, setNameText] = useState('')
   const [phoneText, setPhoneText] = useState('')
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true)
   const [buttonDisabled, SetbuttonDisabled] = useState(true)
   const [checkbox, setCheckbox] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -46,24 +49,39 @@ function Register() {
     setPhoneText(num)
   }
 
-  const handleSumbit = (e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault()
 
     // validation logic
 
     // send data to server
-    console.log({
-      nameText,
-      phoneText,
-      gender,
-    })
+    try {
+      const url = serverURL + '/users'
+      const res = await axios.post(url, {
+        number: phoneText,
+        name: nameText,
+        gender: gender,
+        invitedCode: code,
+      })
 
-    setNameText('')
-    setPhoneText('')
-    setGender('')
+      console.log(res)
 
-    // redirect to the next page
-    navigate('/invite')
+      if (res.data.status === 200) {
+        setNameText('')
+        setPhoneText('')
+        setGender('')
+
+        // set new code
+        setNewCode(res.data.data.invitationCode)
+
+        // redirect to the next page
+        navigate('/invite')
+      } else {
+        setErrorMessage(res.data.message)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -107,6 +125,18 @@ function Register() {
             * enter a valid number
           </p>
         )}
+        <StyledTextField
+          value={code}
+          // onChange={handlePhone}
+          disabled={true}
+          id='code-input'
+          label='Code'
+          variant='standard'
+          // placeholder='01012345678'
+          // required
+          fullWidth
+          // type={'text'}
+        />
         <ToggleButtonGroup
           fullWidth
           value={gender}
@@ -144,6 +174,12 @@ function Register() {
             002802-04-111492 국민 신가인 | 30,000원 송금 완료
           </p>
         </div>
+        {errorMessage && (
+          <Typography variant='caption' align='center' color='tomato'>
+            {errorMessage}
+          </Typography>
+        )}
+
         <Button
           fullWidth
           variant='contained'

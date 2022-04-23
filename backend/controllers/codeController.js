@@ -13,28 +13,36 @@ const getNewCode = asyncHandler(async (req, res) => {
   const result = await Code.create({ code })
 
   // return to client
-  res.status(200).json(result)
+  res.status(200).json({
+    status: 200,
+    data: result,
+  })
 })
 
 // check if good code
+// POST method
+// /codes
 const checkCode = asyncHandler(async (req, res) => {
   const enteredCode = req.body.code.toUpperCase()
   const code = await Code.findOne({ code: enteredCode })
 
   // code does not exist
   if (!code)
-    return res.status(400).json({
+    return res.status(200).json({
+      status: 400,
       message: 'Wrong code',
     })
 
   // code is already used
   if (code.used === true)
-    return res.status(400).json({
+    return res.status(200).json({
+      status: 400,
       message: 'Code is already used',
     })
 
   // good code
   return res.status(200).json({
+    status: 200,
     message: 'Success',
   })
 })
@@ -56,7 +64,10 @@ const updateCode = asyncHandler(async (req, res) => {
   )
 
   // response
-  res.status(200).json(result)
+  res.status(200).json({
+    status: 200,
+    data: result,
+  })
 })
 
 module.exports = {

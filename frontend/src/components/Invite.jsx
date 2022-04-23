@@ -7,21 +7,31 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Snackbar } from '@mui/material'
 import PartyInfo from './PartyInfo'
 
-function Invite() {
-  const [code, setCode] = useState('')
+function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   const [open, setOpen] = useState(false)
   const [spotRemaining, setSpotRemaining] = useState(0)
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   useEffect(() => {
-    // retrieve code from server
-    setCode('XY123')
+    // save to local storage
+    if (!newCode || !invitationData) {
+      console.log('here')
+      setNewCode(localStorage.getItem('newCode'))
+      setInvitationData(localStorage.getItem('invitationData'))
+      setButtonDisabled(JSON.parse(localStorage.getItem('invitationData')).used)
+      // console.log(localStorage.getItem('invitationData'))
+    } else {
+      localStorage.setItem('newCode', newCode)
+      localStorage.setItem('invitationData', JSON.stringify(invitationData))
+      setButtonDisabled(invitationData.used)
+    }
 
     // retrieve spots remaining
-    setSpotRemaining(150)
-  }, [])
+    setSpotRemaining(15)
+  }, [newCode, invitationData, setNewCode, setInvitationData])
 
   const handleClick = () => {
-    navigator.clipboard.writeText(code)
+    navigator.clipboard.writeText(newCode)
     setOpen(true)
   }
   return (
@@ -39,13 +49,16 @@ function Invite() {
           <Button
             onClick={handleClick}
             variant='contained'
-            endIcon={<ContentCopyIcon />}
+            endIcon={buttonDisabled ? '' : <ContentCopyIcon />}
             sx={{
               color: 'black',
               bgcolor: 'white',
             }}
+            disabled={buttonDisabled}
           >
-            Code: {code}
+            {buttonDisabled
+              ? `Thanks, You invited ${invitationData.guestName}`
+              : `Code: ${newCode}`}
           </Button>
         </Stack>
 

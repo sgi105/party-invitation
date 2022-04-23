@@ -5,6 +5,7 @@ import Info from './components/Info'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useState } from 'react'
 
 const darkTheme = createTheme({
   palette: {
@@ -13,6 +14,10 @@ const darkTheme = createTheme({
 })
 
 function App() {
+  const [code, setCode] = useState('')
+  const [newCode, setNewCode] = useState('')
+  const [invitationData, setInvitationData] = useState({})
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Router>
@@ -24,10 +29,34 @@ function App() {
               exit={{ opacity: 0 }}
             >
               <Routes>
-                <Route path='/' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/invite' element={<Invite />} />
-                <Route path='/info' element={<Info />} />
+                <Route
+                  path='/'
+                  element={<Login code={code} setCode={setCode} />}
+                />
+                <Route
+                  path='/register'
+                  element={<Register code={code} setNewCode={setNewCode} />}
+                />
+                <Route
+                  path='/invite'
+                  element={
+                    <Invite
+                      newCode={newCode}
+                      setNewCode={setNewCode}
+                      invitationData={invitationData}
+                      setInvitationData={setInvitationData}
+                    />
+                  }
+                />
+                <Route
+                  path='/info'
+                  element={
+                    <Info
+                      setNewCode={setNewCode}
+                      setInvitationData={setInvitationData}
+                    />
+                  }
+                />
               </Routes>
             </motion.div>
           </div>

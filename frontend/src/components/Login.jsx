@@ -5,24 +5,45 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import LoginIcon from '@mui/icons-material/Login'
 import { useState } from 'react'
+import axios from 'axios'
+const serverURL = process.env.REACT_APP_SERVER_URI
 
-function Login() {
+// axios.defaults.withCredentials = true
+
+function Login({ code, setCode }) {
   const navigate = useNavigate()
 
   const [isValidCode, setIsValidCode] = useState(true)
+  // const [code, setCode] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
+    const url = serverURL + '/codes'
+
     // verify invitation code
+    try {
+      const res = await axios.post(url, {
+        code: code,
+      })
+      console.log(res.data)
+      const isValid = res.data.status === 200
 
-    const isValid = true
+      // update State
+      setIsValidCode(isValid)
 
-    // update State
-    setIsValidCode(isValid)
-
-    // if valid, go to register page
-    if (isValid) {
-      navigate('/register')
+      // if valid, go to register page
+      if (isValid) {
+        navigate('/register')
+      } else {
+        setErrorMessage(res.data.message)
+      }
+    } catch (err) {
+      console.log(err)
     }
+  }
+
+  const handleCode = (e) => {
+    setCode(e.target.value.toUpperCase())
   }
 
   const handleCheckInfo = () => {
@@ -45,6 +66,8 @@ function Login() {
           required
           autoFocus
           fullWidth
+          value={code}
+          onChange={handleCode}
         />
         {!isValidCode && (
           <p
@@ -54,7 +77,7 @@ function Login() {
               width: '100%',
             }}
           >
-            * enter a valid code
+            * {errorMessage}
           </p>
         )}
 

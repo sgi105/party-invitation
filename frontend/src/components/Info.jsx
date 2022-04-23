@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react'
 import { StyledTextField } from './StyledComponents'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
+import axios from 'axios'
+const serverURL = process.env.REACT_APP_SERVER_URI
 
-function Info() {
+function Info({ setNewCode, setInvitationData }) {
   const navigate = useNavigate()
   const [phoneText, setPhoneText] = useState('')
   const [buttonDisabled, SetbuttonDisabled] = useState(true)
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handlePhone = (e) => {
     let num = e.target.value
@@ -32,8 +35,26 @@ function Info() {
       : SetbuttonDisabled(true)
   }, [phoneText, isValidPhoneNumber])
 
-  const clickHandler = () => {
-    navigate('/invite')
+  const handleSubmit = async () => {
+    // get info by phone number
+    try {
+      const url = serverURL + '/users/' + phoneText
+      const res = await axios.get(url)
+      console.log(res)
+
+      if (res.data.status === 200) {
+        console.log(res.data.data)
+        setNewCode(res.data.data.code)
+        setInvitationData(res.data.data)
+        setErrorMessage('')
+
+        navigate('/invite')
+      } else {
+        setErrorMessage(res.data.message)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -63,8 +84,22 @@ function Info() {
         </p>
       )}
 
+      {errorMessage && (
+        <p
+          style={{
+            fontSize: '12px',
+            // marginTop: '-1.6rem',
+            marginBottom: '-24px',
+            color: 'tomato',
+            width: '100%',
+          }}
+        >
+          * {errorMessage}
+        </p>
+      )}
+
       <Button
-        onClick={clickHandler}
+        onClick={handleSubmit}
         fullWidth
         variant='contained'
         sx={{
