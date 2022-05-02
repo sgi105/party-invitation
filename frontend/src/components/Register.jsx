@@ -19,6 +19,7 @@ function Register({ code, setNewCode }) {
   const [checkbox, setCheckbox] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
+  const url = '/api/users'
 
   useEffect(() => {
     checkbox && phoneText && nameText && isValidPhoneNumber && gender
@@ -57,7 +58,7 @@ function Register({ code, setNewCode }) {
     // send data to server
     try {
       // const url = serverURL + '/users'
-      const url = '/users'
+      // const url = '/users'
       const res = await axios.post(url, {
         number: phoneText,
         name: nameText,

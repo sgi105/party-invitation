@@ -6,12 +6,14 @@ import IconButton from '@mui/material/IconButton'
 import LoginIcon from '@mui/icons-material/Login'
 import { useState } from 'react'
 import axios from 'axios'
+
 // const serverURL = process.env.REACT_APP_SERVER_URI
 
 // axios.defaults.withCredentials = true
 
 function Login({ code, setCode }) {
   const navigate = useNavigate()
+  const url = '/api/codes'
 
   const [isValidCode, setIsValidCode] = useState(true)
   // const [code, setCode] = useState('')
@@ -19,7 +21,7 @@ function Login({ code, setCode }) {
 
   const onClickHandler = async () => {
     // const url = serverURL + '/codes'
-    const url = '/codes'
+    // const url = '/codes'
 
     // verify invitation code
     try {

@@ -12,6 +12,7 @@ function Info({ setNewCode, setInvitationData }) {
   const [buttonDisabled, SetbuttonDisabled] = useState(true)
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const url = '/api/users/' + phoneText
 
   const handlePhone = (e) => {
     let num = e.target.value
@@ -39,7 +40,7 @@ function Info({ setNewCode, setInvitationData }) {
     // get info by phone number
     try {
       // const url = serverURL + '/users/' + phoneText
-      const url = '/users/' + phoneText
+      // const url = '/users/' + phoneText
       const res = await axios.get(url)
       console.log(res)
 
