@@ -6,11 +6,18 @@ import { useState, useEffect } from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Snackbar } from '@mui/material'
 import PartyInfo from './PartyInfo'
+import axios from 'axios'
+const API_URL = '/api/users/count'
 
 function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   const [open, setOpen] = useState(false)
   const [spotRemaining, setSpotRemaining] = useState(0)
   const [buttonDisabled, setButtonDisabled] = useState(false)
+
+  const getUserCount = async () => {
+    const res = await axios.get(API_URL)
+    setSpotRemaining(100 - res.data.data)
+  }
 
   useEffect(() => {
     // save to local storage
@@ -29,8 +36,23 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
     }
 
     // retrieve spots remaining
+    getUserCount()
 
-    setSpotRemaining(15)
+    // try {
+    // let res
+    // const apiCall = async () => {
+    // const res = await axios.get(API_URL)
+    // }
+    // apiCall()
+
+    //   if (res.data.status === 200) {
+    //     setSpotRemaining(res.data.data)
+    //   } else {
+    //     setSpotRemaining(25)
+    //   }
+    // } catch (err) {
+    //   console.log(err)
+    // }
   }, [newCode, invitationData, setNewCode, setInvitationData])
 
   const handleClick = () => {
