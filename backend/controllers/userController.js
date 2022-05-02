@@ -85,7 +85,7 @@ const createUser = asyncHandler(async (req, res) => {
 })
 
 // @desc get user number, and return invitation code/status
-// @route GET /user/:number
+// @route GET /users/:number
 const getUser = asyncHandler(async (req, res) => {
   let number = req.params.number
 
@@ -111,4 +111,20 @@ const getUser = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createUser, getUser }
+// @desc count total Users
+// @route GET /users/count
+const countUser = asyncHandler(async (req, res) => {
+  // count users
+  const userCount = await User.find({}).count()
+
+  console.log(userCount)
+
+  // code does not exist, return error
+
+  return res.status(200).json({
+    status: 200,
+    data: userCount,
+  })
+})
+
+module.exports = { createUser, getUser, countUser }

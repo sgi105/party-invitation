@@ -15,18 +15,21 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   useEffect(() => {
     // save to local storage
     if (!newCode || !invitationData) {
-      console.log('here')
+      // after refresh, there is no state, so use local storage, and set the state to local storage
+      // localStorage -> state
       setNewCode(localStorage.getItem('newCode'))
-      setInvitationData(localStorage.getItem('invitationData'))
+      setInvitationData(JSON.parse(localStorage.getItem('invitationData')))
       setButtonDisabled(JSON.parse(localStorage.getItem('invitationData')).used)
-      // console.log(localStorage.getItem('invitationData'))
     } else {
+      // if there is state, use the state, and save it to local storage
+      // state -> localStorage
       localStorage.setItem('newCode', newCode)
       localStorage.setItem('invitationData', JSON.stringify(invitationData))
       setButtonDisabled(invitationData.used)
     }
 
     // retrieve spots remaining
+
     setSpotRemaining(15)
   }, [newCode, invitationData, setNewCode, setInvitationData])
 
