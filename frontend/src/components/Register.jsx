@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox'
 import { Typography } from '@mui/material'
 import PartyInfo from './PartyInfo'
 import axios from 'axios'
-const serverURL = process.env.REACT_APP_SERVER_URI
+// const serverURL = process.env.REACT_APP_SERVER_URI
 
 function Register({ code, setNewCode }) {
   const [gender, setGender] = useState('')
@@ -56,7 +56,8 @@ function Register({ code, setNewCode }) {
 
     // send data to server
     try {
-      const url = serverURL + '/users'
+      // const url = serverURL + '/users'
+      const url = '/users'
       const res = await axios.post(url, {
         number: phoneText,
         name: nameText,

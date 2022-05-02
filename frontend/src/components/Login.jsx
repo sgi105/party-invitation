@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import LoginIcon from '@mui/icons-material/Login'
 import { useState } from 'react'
 import axios from 'axios'
-const serverURL = process.env.REACT_APP_SERVER_URI
+// const serverURL = process.env.REACT_APP_SERVER_URI
 
 // axios.defaults.withCredentials = true
 
@@ -18,7 +18,8 @@ function Login({ code, setCode }) {
   const [errorMessage, setErrorMessage] = useState('')
 
   const onClickHandler = async () => {
-    const url = serverURL + '/codes'
+    // const url = serverURL + '/codes'
+    const url = '/codes'
 
     // verify invitation code
     try {

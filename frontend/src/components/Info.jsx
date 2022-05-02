@@ -4,7 +4,7 @@ import { StyledTextField } from './StyledComponents'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import axios from 'axios'
-const serverURL = process.env.REACT_APP_SERVER_URI
+// const serverURL = process.env.REACT_APP_SERVER_URI
 
 function Info({ setNewCode, setInvitationData }) {
   const navigate = useNavigate()
@@ -38,7 +38,8 @@ function Info({ setNewCode, setInvitationData }) {
   const handleSubmit = async () => {
     // get info by phone number
     try {
-      const url = serverURL + '/users/' + phoneText
+      // const url = serverURL + '/users/' + phoneText
+      const url = '/users/' + phoneText
       const res = await axios.get(url)
       console.log(res)
 
