@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { StyledTextField } from './StyledComponents'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import LoginIcon from '@mui/icons-material/Login'
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined'
 import { useState } from 'react'
 import axios from 'axios'
+import { Typography } from '@mui/material'
 
 // const serverURL = process.env.REACT_APP_SERVER_URI
 
@@ -53,6 +54,10 @@ function Login({ code, setCode }) {
     navigate('/info')
   }
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') onClickHandler()
+  }
+
   return (
     <form
       onSubmit={(e) => {
@@ -71,6 +76,7 @@ function Login({ code, setCode }) {
           fullWidth
           value={code}
           onChange={handleCode}
+          onKeyDown={handleKeyPress}
         />
         {!isValidCode && (
           <p
@@ -85,8 +91,20 @@ function Login({ code, setCode }) {
         )}
 
         <IconButton onClick={onClickHandler}>
-          <LoginIcon fontSize={'large'} />
+          <ArrowCircleRightOutlinedIcon fontSize={'large'} />
         </IconButton>
+        <Typography
+          color='lightgray'
+          variant='caption'
+          align='center'
+          sx={{
+            // fontStyle: 'italic',
+            marginTop: '-1rem',
+            fontWeight: 100,
+          }}
+        >
+          Enter
+        </Typography>
       </div>
       <Button
         fullWidth
