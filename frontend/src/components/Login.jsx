@@ -72,7 +72,7 @@ function Login({ code, setCode }) {
           // label='code'
           variant='standard'
           required
-          autoFocus
+          // autoFocus
           fullWidth
           value={code}
           onChange={handleCode}

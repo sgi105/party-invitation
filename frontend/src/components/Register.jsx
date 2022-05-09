@@ -100,7 +100,7 @@ function Register({ code, setNewCode }) {
           label='Name'
           variant='standard'
           required
-          autoFocus
+          // autoFocus
           fullWidth
         />
         <StyledTextField
