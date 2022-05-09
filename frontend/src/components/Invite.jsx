@@ -13,10 +13,11 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   const [open, setOpen] = useState(false)
   const [spotRemaining, setSpotRemaining] = useState(0)
   const [buttonDisabled, setButtonDisabled] = useState(false)
+  const totalSpots = 100
 
   const getUserCount = async () => {
     const res = await axios.get(API_URL)
-    setSpotRemaining(100 - res.data.data)
+    setSpotRemaining(totalSpots - res.data.data)
   }
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   }, [newCode, invitationData, setNewCode, setInvitationData])
 
   const handleClick = () => {
-    navigator.clipboard.writeText(newCode)
+    navigator.clipboard.writeText('Code: ' + newCode + '\nLink: URL')
     setOpen(true)
   }
   return (
@@ -88,9 +89,19 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
         </Stack>
 
         <Typography variant='caption'>
-          Only one person can enter with this code. <br />본 초대 코드는 한 명만
-          사용할 수 있습니다.
+          Only one person can enter with this code. <br />본 초대 코드로 한 명만
+          입장할 수 있습니다.
         </Typography>
+        {/* <Typography
+          color='lightgray'
+          variant='caption'
+          align='center'
+          sx={{
+            fontWeight: 100,
+          }}
+        >
+          Questions? Kakao ID : sgi105
+        </Typography> */}
 
         <Snackbar
           open={open}
@@ -98,7 +109,7 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
           autoHideDuration={1000}
           message='Copied to clipboard'
         />
-        <div style={{ position: 'fixed', bottom: '3rem', left: 0, right: 0 }}>
+        <div style={{ position: 'fixed', bottom: '10rem', left: 0, right: 0 }}>
           <PartyInfo />
         </div>
       </Stack>

@@ -176,6 +176,26 @@ function Register({ code, setNewCode }) {
             002802-04-111492 국민 신가인 | 30,000원 송금 완료
           </p>
         </div>
+        {/* <FormHelperText
+          sx={{
+            marginTop: '-2.5rem',
+          }}
+        >
+          *신청자와 입금자명이 다를 경우 하단의 카카오톡으로 말씀해주세요
+        </FormHelperText> */}
+        <Typography
+          color='lightgray'
+          variant='caption'
+          align='center'
+          sx={{
+            fontSize: '.7rem',
+            fontStyle: 'italic',
+            fontWeight: 100,
+            marginTop: '-2.2rem',
+          }}
+        >
+          *입금자명이 신청자와 다를 경우 상단의 카카오톡으로 말씀해주세요
+        </Typography>
         {errorMessage && (
           <Typography variant='caption' align='center' color='tomato'>
             {errorMessage}
@@ -199,6 +219,17 @@ function Register({ code, setNewCode }) {
         >
           Register
         </Button>
+        {/* <Typography
+          color='lightgray'
+          variant='caption'
+          align='center'
+          sx={{
+            // fontStyle: 'italic',
+            fontWeight: 100,
+          }}
+        >
+          Questions? Kakao ID : sgi105
+        </Typography> */}
       </div>
     </form>
   )

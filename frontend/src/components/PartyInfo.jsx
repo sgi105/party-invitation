@@ -5,7 +5,7 @@ function PartyInfo() {
   return (
     <Stack>
       <Typography variant='caption' align='center'>
-        Place: Itaewon | Time: 6/3 FRI 19:00
+        Place: Hongdae | Time: 6/3 FRI 20:00
       </Typography>
       <Typography
         color='lightgray'
@@ -18,6 +18,18 @@ function PartyInfo() {
       >
         세부 장소 확정되면 문자로 안내 예정입니다. <br />
         Exact place will be announced via phone/email.
+      </Typography>
+      <Typography
+        color='lightgray'
+        variant='caption'
+        align='center'
+        sx={{
+          // fontStyle: 'italic',
+          marginTop: '1rem',
+          fontWeight: 100,
+        }}
+      >
+        Questions? Kakao ID : sgi105
       </Typography>
     </Stack>
   )
