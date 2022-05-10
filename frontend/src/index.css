@@ -7,7 +7,7 @@
 }
 
 html {
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
 }
 
 body {
@@ -15,15 +15,18 @@ body {
   background-color: rgba(0, 0, 0, 1);
   color: #fff;
   line-height: 1.6;
-  height: -webkit-fill-available;
+  /* min-height: -webkit-fill-available; */
 }
 
 .container {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  /* min-height: -webkit-fill-available; */
   margin: auto;
   max-width: 768px;
   /* margin: auto; */
   padding: 20px;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
