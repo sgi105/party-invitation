@@ -58,7 +58,7 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
 
   const handleClick = () => {
     navigator.clipboard.writeText('Code: ' + newCode + '\nLink: URL')
-    setOpen(true)
+    // setOpen(true)
   }
   return (
     <>
@@ -104,12 +104,12 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
           Questions? Kakao ID : sgi105
         </Typography> */}
 
-        <Snackbar
+        {/* <Snackbar
           open={open}
           onClose={() => setOpen(false)}
           autoHideDuration={1000}
           message='Copied to clipboard'
-        />
+        /> */}
         <PartyInfo />
       </Stack>
     </>
