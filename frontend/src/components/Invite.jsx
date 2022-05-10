@@ -13,6 +13,7 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   const [open, setOpen] = useState(false)
   const [spotRemaining, setSpotRemaining] = useState(0)
   const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [copiedAlertMessage, setCopiedAlertMessage] = useState('ㅤ')
   const totalSpots = 100
 
   const getUserCount = async () => {
@@ -57,8 +58,15 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   }, [newCode, invitationData, setNewCode, setInvitationData])
 
   const handleClick = () => {
-    navigator.clipboard.writeText('Code: ' + newCode + '\nLink: URL')
+    // deprecated due to not working on mobile
+    // navigator.clipboard.writeText('Code: ' + newCode + '\nLink: URL')
     // setOpen(true)
+
+    // show message above that it was copied
+    setCopiedAlertMessage('Copied!')
+    setTimeout(() => {
+      setCopiedAlertMessage('ㅤ')
+    }, 2000)
   }
   return (
     <>
@@ -68,11 +76,13 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
           <Typography variant='h3'>Invite a friend.</Typography>
         </Stack>
         <Stack spacing={1}>
-          {/* <Typography variant='caption' color='tomato' align='right'>
-            {spotRemaining} spots remaining
-          </Typography> */}
+          <Typography variant='caption' align='right'>
+            {copiedAlertMessage}
+          </Typography>
 
           <Button
+            id='btnCopy'
+            data-clipboard-text={'Code: ' + newCode + '\nLink: www.exit22.co'}
             onClick={handleClick}
             variant='contained'
             endIcon={buttonDisabled ? '' : <ContentCopyIcon />}

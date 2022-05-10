@@ -1,6 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { FormHelperText, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import {
+  FormControlLabel,
+  FormHelperText,
+  ToggleButton,
+  ToggleButtonGroup,
+  FormGroup,
+} from '@mui/material'
 import Button from '@mui/material/Button'
 import { StyledTextField } from './StyledComponents'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +14,9 @@ import Checkbox from '@mui/material/Checkbox'
 import { Typography } from '@mui/material'
 import PartyInfo from './PartyInfo'
 import axios from 'axios'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { Stack } from '@mui/material'
+
 // const serverURL = process.env.REACT_APP_SERVER_URI
 
 function Register({ code, setNewCode }) {
@@ -18,6 +27,8 @@ function Register({ code, setNewCode }) {
   const [buttonDisabled, SetbuttonDisabled] = useState(true)
   const [checkbox, setCheckbox] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [copiedAlertMessage, setCopiedAlertMessage] = useState('ㅤ')
+
   const navigate = useNavigate()
   const url = '/api/users'
 
@@ -48,6 +59,18 @@ function Register({ code, setNewCode }) {
     }
 
     setPhoneText(num)
+  }
+
+  const handleClick = () => {
+    // deprecated due to not working on mobile
+    // navigator.clipboard.writeText('Code: ' + newCode + '\nLink: URL')
+    // setOpen(true)
+
+    // show message above that it was copied
+    setCopiedAlertMessage('Copied!')
+    setTimeout(() => {
+      setCopiedAlertMessage('ㅤ')
+    }, 2000)
   }
 
   const handleSumbit = async (e) => {
@@ -161,23 +184,57 @@ function Register({ code, setNewCode }) {
         >
           *choose your gender
         </FormHelperText>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Checkbox
-            // size=''
-            checked={checkbox}
-            onChange={(e) => setCheckbox(e.target.checked)}
-            sx={{ '&.Mui-checked': { color: 'lightgray' } }}
-          />
-          <p style={{ fontSize: '13px' }}>
-            002802-04-111492 국민 신가인 | 30,000원 송금 완료
-          </p>
-        </div>
+
+        <Stack spacing={1}>
+          <Typography variant='caption' align='right'>
+            {copiedAlertMessage}
+          </Typography>
+          <Button
+            id='btnCopy'
+            data-clipboard-text={'002802-04-111492 국민'}
+            onClick={handleClick}
+            variant='contained'
+            endIcon={<ContentCopyIcon sx={{ width: '16px' }} />}
+            sx={{
+              color: 'white',
+              bgcolor: 'rgba(255, 255, 255, 0.16)',
+              fontSize: '.7rem',
+              fontWeight: 'light',
+            }}
+          >
+            002802-04-111492 국민 신가인
+          </Button>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Checkbox
+              // size=''
+              checked={checkbox}
+              onChange={(e) => setCheckbox(e.target.checked)}
+              sx={{ '&.Mui-checked': { color: 'lightgray' } }}
+            />
+
+            <p style={{ fontSize: '13px' }}>위 계좌로 30,000원 송금 완료</p>
+          </div>
+          <Typography
+            color='lightgray'
+            variant='caption'
+            align='center'
+            sx={{
+              fontSize: '.7rem',
+              fontStyle: 'italic',
+              fontWeight: 100,
+              marginTop: '-2.2rem',
+            }}
+          >
+            *다른 입금자명으로 입금할 경우, <br />
+            카카오톡(sgi105) 문의 주세요.
+          </Typography>
+        </Stack>
         {/* <FormHelperText
           sx={{
             marginTop: '-2.5rem',
@@ -185,19 +242,6 @@ function Register({ code, setNewCode }) {
         >
           *신청자와 입금자명이 다를 경우 하단의 카카오톡으로 말씀해주세요
         </FormHelperText> */}
-        <Typography
-          color='lightgray'
-          variant='caption'
-          align='center'
-          sx={{
-            fontSize: '.7rem',
-            fontStyle: 'italic',
-            fontWeight: 100,
-            marginTop: '-2.2rem',
-          }}
-        >
-          *입금자명이 신청자와 다를 경우 상단의 카카오톡으로 말씀해주세요
-        </Typography>
         {errorMessage && (
           <Typography variant='caption' align='center' color='tomato'>
             {errorMessage}
