@@ -6,11 +6,16 @@
   padding: 0;
 }
 
+html {
+  /* height: -webkit-fill-available; */
+}
+
 body {
   font-family: 'Roboto';
   background-color: rgba(0, 0, 0, 1);
   color: #fff;
   line-height: 1.6;
+  /* height: -webkit-fill-available; */
 }
 
 .container {
@@ -22,6 +27,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* height: -webkit-fill-available; */
   /* background-color: aquamarine; */
 }
 

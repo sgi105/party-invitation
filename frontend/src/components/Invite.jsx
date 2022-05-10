@@ -62,15 +62,15 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
   }
   return (
     <>
-      <Stack spacing={4}>
+      <Stack spacing={10} align='center' padding='10px'>
         <Stack>
-          <Typography variant='h4'>You are in,</Typography>
-          <Typography variant='h2'>Invite a friend.</Typography>
+          <Typography variant='h4'>You are in, </Typography>
+          <Typography variant='h3'>Invite a friend.</Typography>
         </Stack>
         <Stack spacing={1}>
-          <Typography variant='caption' color='tomato' align='right'>
+          {/* <Typography variant='caption' color='tomato' align='right'>
             {spotRemaining} spots remaining
-          </Typography>
+          </Typography> */}
 
           <Button
             onClick={handleClick}
@@ -86,12 +86,13 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
               ? `Thanks, You invited ${invitationData.guestName}`
               : `Code: ${newCode}`}
           </Button>
+          <Typography variant='caption' color='lightgray'>
+            Only <span style={{ color: 'tomato' }}>one person </span>can enter
+            with this code. <br />본 초대 코드로{' '}
+            <span style={{ color: 'tomato' }}>한 명</span>만 입장할 수 있습니다.
+          </Typography>
         </Stack>
 
-        <Typography variant='caption'>
-          Only one person can enter with this code. <br />본 초대 코드로 한 명만
-          입장할 수 있습니다.
-        </Typography>
         {/* <Typography
           color='lightgray'
           variant='caption'
@@ -109,9 +110,7 @@ function Invite({ newCode, invitationData, setNewCode, setInvitationData }) {
           autoHideDuration={1000}
           message='Copied to clipboard'
         />
-        <div style={{ position: 'fixed', bottom: '10rem', left: 0, right: 0 }}>
-          <PartyInfo />
-        </div>
+        <PartyInfo />
       </Stack>
     </>
   )

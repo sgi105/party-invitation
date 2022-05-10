@@ -5,7 +5,7 @@ function PartyInfo() {
   return (
     <Stack>
       <Typography variant='caption' align='center'>
-        Place: Hongdae | Time: 6/3 FRI 20:00
+        Place: Hapjeong | Time: 6/3 FRI 20:00
       </Typography>
       <Typography
         color='lightgray'
@@ -16,16 +16,16 @@ function PartyInfo() {
           fontWeight: 100,
         }}
       >
-        세부 장소 확정되면 문자로 안내 예정입니다. <br />
-        Exact place will be announced via phone/email.
+        Exact place will be announced via phone/email. <br /> 세부 장소 확정되면
+        문자로 안내 예정입니다.
       </Typography>
       <Typography
-        color='lightgray'
+        color='gold'
         variant='caption'
         align='center'
         sx={{
           // fontStyle: 'italic',
-          marginTop: '1rem',
+          marginTop: '.5rem',
           fontWeight: 100,
         }}
       >

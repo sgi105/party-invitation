@@ -90,7 +90,8 @@ function Register({ code, setNewCode }) {
     <form onSubmit={handleSumbit}>
       <div className='input-group register'>
         <Typography variant='h4' align='center' marginBottom={'-1rem'}>
-          Welcome. You're invited.
+          Welcome. <br />
+          You're invited.
         </Typography>
         <PartyInfo />
         <StyledTextField
@@ -168,11 +169,12 @@ function Register({ code, setNewCode }) {
           }}
         >
           <Checkbox
+            // size=''
             checked={checkbox}
             onChange={(e) => setCheckbox(e.target.checked)}
             sx={{ '&.Mui-checked': { color: 'lightgray' } }}
           />
-          <p style={{ fontSize: '14px' }}>
+          <p style={{ fontSize: '13px' }}>
             002802-04-111492 국민 신가인 | 30,000원 송금 완료
           </p>
         </div>
