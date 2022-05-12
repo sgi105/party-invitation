@@ -28,6 +28,12 @@ function Register({ code, setNewCode }) {
   const [checkbox, setCheckbox] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [copiedAlertMessage, setCopiedAlertMessage] = useState('ㅤ')
+  const [userCount, setUserCount] = useState(0)
+
+  const getUserCount = async () => {
+    const res = await axios.get('/api/users/count')
+    setUserCount(res.data.data)
+  }
 
   const navigate = useNavigate()
   const url = '/api/users'
@@ -36,6 +42,8 @@ function Register({ code, setNewCode }) {
     checkbox && phoneText && nameText && isValidPhoneNumber && gender
       ? SetbuttonDisabled(false)
       : SetbuttonDisabled(true)
+
+    getUserCount()
   }, [nameText, phoneText, gender, checkbox, isValidPhoneNumber])
 
   const handleGender = (e) => {
@@ -247,7 +255,7 @@ function Register({ code, setNewCode }) {
                 color: 'tomato',
               }}
             >
-              50 spots. 18 remaining
+              50 spots. {50 - userCount} remaining
             </Typography>
           </div>
 
