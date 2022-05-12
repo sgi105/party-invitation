@@ -204,11 +204,27 @@ function Register({ code, setNewCode }) {
           >
             002802-04-111492 국민 신가인
           </Button>
+          {/* <ToggleButtonGroup
+            fullWidth
+            orientation='vertical'
+            value={gender}
+            exclusive
+            onChange={handleGender}
+            required
+          >
+            <ToggleButton fullWidth value='earlyBird' color='primary'>
+              Early bird | ₩35,000
+            </ToggleButton>
+            <ToggleButton fullWidth value='regular'>
+              Regular | ₩50,000
+            </ToggleButton>
+          </ToggleButtonGroup> */}
           <div
             style={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              // marginBottom: '-1.3rem',
             }}
           >
             <Checkbox
@@ -218,7 +234,52 @@ function Register({ code, setNewCode }) {
               sx={{ '&.Mui-checked': { color: 'lightgray' } }}
             />
 
-            <p style={{ fontSize: '13px' }}>위 계좌로 30,000원 송금 완료</p>
+            <p style={{ fontSize: '13px' }}>EARLY BIRD | 35,000원 송금 완료</p>
+            <Typography
+              color='lightgray'
+              variant='caption'
+              align='center'
+              sx={{
+                fontSize: '.7rem',
+                fontStyle: 'italic',
+                fontWeight: 100,
+                marginLeft: '5px',
+                color: 'tomato',
+              }}
+            >
+              50 spots. 18 remaining
+            </Typography>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '-.5rem',
+              marginLeft: '0rem',
+            }}
+          >
+            <Checkbox
+              // size=''
+              disabled={true}
+              sx={{ '&.Mui-checked': { color: 'lightgray' } }}
+            />
+
+            <p style={{ fontSize: '13px' }}> REGULAR | 50,000원 송금 완료</p>
+            <Typography
+              color='lightgray'
+              variant='caption'
+              align='center'
+              sx={{
+                fontSize: '.7rem',
+                fontStyle: 'italic',
+                fontWeight: 100,
+                marginLeft: '5px',
+              }}
+            >
+              100 spots. 100 remaining
+            </Typography>
           </div>
           <Typography
             color='lightgray'

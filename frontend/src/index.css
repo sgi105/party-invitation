@@ -22,7 +22,7 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   /* min-height: -webkit-fill-available; */
-  margin: auto;
+  margin: 30px auto;
   max-width: 768px;
   /* margin: auto; */
   padding: 20px;
