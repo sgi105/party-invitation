@@ -118,7 +118,7 @@ function Login({ code, setCode }) {
         }}
         onClick={handleCheckInfo}
       >
-        Already Resgistered? Check Info.
+        Already Resgistered? Click to check Info.
       </Button>
     </form>
   )

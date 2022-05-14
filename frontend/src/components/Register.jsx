@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import {
-  FormControlLabel,
+  // FormControlLabel,
   FormHelperText,
   ToggleButton,
   ToggleButtonGroup,
-  FormGroup,
+  // FormGroup,
 } from '@mui/material'
 import Button from '@mui/material/Button'
 import { StyledTextField } from './StyledComponents'
@@ -16,6 +16,8 @@ import PartyInfo from './PartyInfo'
 import axios from 'axios'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Stack } from '@mui/material'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import isFuture from 'date-fns/isFuture'
 
 // const serverURL = process.env.REACT_APP_SERVER_URI
 
@@ -29,6 +31,8 @@ function Register({ code, setNewCode }) {
   const [errorMessage, setErrorMessage] = useState('')
   const [copiedAlertMessage, setCopiedAlertMessage] = useState('ㅤ')
   const [userCount, setUserCount] = useState(0)
+  const earlyBirdDeadline = new Date('2022/05/18')
+  const regularDeadline = new Date('2022/05/25')
 
   const getUserCount = async () => {
     const res = await axios.get('/api/users/count')
@@ -227,37 +231,50 @@ function Register({ code, setNewCode }) {
               Regular | ₩50,000
             </ToggleButton>
           </ToggleButtonGroup> */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              // marginBottom: '-1.3rem',
-            }}
-          >
-            <Checkbox
-              // size=''
-              checked={checkbox}
-              onChange={(e) => setCheckbox(e.target.checked)}
-              sx={{ '&.Mui-checked': { color: 'lightgray' } }}
-            />
-
-            <p style={{ fontSize: '13px' }}>EARLY BIRD | 35,000원 송금 완료</p>
-            <Typography
-              color='lightgray'
-              variant='caption'
-              align='center'
-              sx={{
-                fontSize: '.7rem',
-                fontStyle: 'italic',
-                fontWeight: 100,
-                marginLeft: '5px',
-                color: 'tomato',
+          {isFuture(earlyBirdDeadline) && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                // marginBottom: '-1.3rem',
               }}
             >
-              50 spots. {50 - userCount} remaining
-            </Typography>
-          </div>
+              <Checkbox
+                // size=''
+                checked={checkbox}
+                onChange={(e) => setCheckbox(e.target.checked)}
+                sx={{ '&.Mui-checked': { color: 'lightgray' } }}
+              />
+
+              <p style={{ fontSize: '13px' }}>
+                EARLY BIRD | 35,000원 송금 완료
+              </p>
+              <Typography
+                color='lightgray'
+                variant='caption'
+                align='center'
+                sx={{
+                  fontSize: '.7rem',
+                  fontStyle: 'italic',
+                  fontWeight: 100,
+                  marginLeft: '5px',
+                  color: 'tomato',
+                }}
+              >
+                {formatDistanceToNow(earlyBirdDeadline) + ' left'}
+                {/* 50 spots. {50 - userCount} remaining */}
+              </Typography>
+            </div>
+          )}
+
+          {!isFuture(earlyBirdDeadline) && (
+            <div
+              style={{
+                marginTop: '1rem',
+              }}
+            ></div>
+          )}
 
           <div
             style={{
@@ -265,18 +282,19 @@ function Register({ code, setNewCode }) {
               justifyContent: 'center',
               alignItems: 'center',
               marginTop: '-.5rem',
-              marginLeft: '0rem',
+              marginLeft: '-0.4rem',
             }}
           >
             <Checkbox
               // size=''
-              disabled={true}
+              disabled={isFuture(earlyBirdDeadline)}
+              onChange={(e) => setCheckbox(e.target.checked)}
               sx={{ '&.Mui-checked': { color: 'lightgray' } }}
             />
 
             <p style={{ fontSize: '13px' }}> REGULAR | 50,000원 송금 완료</p>
             <Typography
-              color='lightgray'
+              color={isFuture(earlyBirdDeadline) ? 'lightgray' : 'tomato'}
               variant='caption'
               align='center'
               sx={{
@@ -286,7 +304,8 @@ function Register({ code, setNewCode }) {
                 marginLeft: '5px',
               }}
             >
-              100 spots. 100 remaining
+              {formatDistanceToNow(regularDeadline) + ' left'}
+              {/* 100 spots. 100 remaining */}
             </Typography>
           </div>
           <Typography
