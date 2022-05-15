@@ -203,7 +203,7 @@ function Register({ code, setNewCode }) {
           </Typography>
           <Button
             id='btnCopy'
-            data-clipboard-text={'002802-04-111492 국민'}
+            data-clipboard-text={'3333-13-3674608 카카오뱅크'}
             onClick={handleClick}
             variant='contained'
             endIcon={<ContentCopyIcon sx={{ width: '16px' }} />}
@@ -214,7 +214,7 @@ function Register({ code, setNewCode }) {
               fontWeight: 'light',
             }}
           >
-            002802-04-111492 국민 신가인
+            3333-13-3674608 카카오뱅크 신가인
           </Button>
           {/* <ToggleButtonGroup
             fullWidth
@@ -319,8 +319,8 @@ function Register({ code, setNewCode }) {
               marginTop: '-2.2rem',
             }}
           >
-            *다른 입금자명으로 입금할 경우, <br />
-            카카오톡(sgi105) 문의 주세요.
+            *다른 입금자명으로 입금할 경우, 카카오톡(sgi105) 문의 주세요. <br />
+            *환불은 7일 전(5/27 23:59)까지 전액, 그 이후로는 불가합니다.
           </Typography>
         </Stack>
         {/* <FormHelperText
