@@ -31,8 +31,8 @@ function Register({ code, setNewCode }) {
   const [errorMessage, setErrorMessage] = useState('')
   const [copiedAlertMessage, setCopiedAlertMessage] = useState('ㅤ')
   const [userCount, setUserCount] = useState(0)
-  const earlyBirdDeadline = new Date('2022/05/18')
-  const regularDeadline = new Date('2022/05/25')
+  const earlyBirdDeadline = new Date('2022/05/22')
+  const regularDeadline = new Date('2022/05/29')
 
   const getUserCount = async () => {
     const res = await axios.get('/api/users/count')
@@ -320,7 +320,7 @@ function Register({ code, setNewCode }) {
             }}
           >
             *다른 입금자명으로 입금할 경우, 카카오톡(sgi105) 문의 주세요. <br />
-            *환불은 7일 전(5/27 23:59)까지 전액, 그 이후로는 불가합니다.
+            *환불은 7일 전(5/28 23:59)까지 전액, 그 이후로는 불가합니다.
           </Typography>
         </Stack>
         {/* <FormHelperText
