@@ -287,14 +287,17 @@ function Register({ code, setNewCode }) {
           >
             <Checkbox
               // size=''
-              disabled={isFuture(earlyBirdDeadline)}
+              disabled={true}
               onChange={(e) => setCheckbox(e.target.checked)}
               sx={{ '&.Mui-checked': { color: 'lightgray' } }}
             />
 
-            <p style={{ fontSize: '13px' }}> REGULAR | 50,000원 송금 완료</p>
+            <p style={{ fontSize: '13px', textDecoration: 'line-through' }}>
+              REGULAR | 50,000원 송금 완료
+            </p>
             <Typography
-              color={isFuture(earlyBirdDeadline) ? 'lightgray' : 'tomato'}
+              // color={isFuture(earlyBirdDeadline) ? 'lightgray' : 'tomato'}
+              color='tomato'
               variant='caption'
               align='center'
               sx={{
@@ -304,8 +307,8 @@ function Register({ code, setNewCode }) {
                 marginLeft: '5px',
               }}
             >
-              {formatDistanceToNow(regularDeadline) + ' left'}
-              {/* 100 spots. 100 remaining */}
+              {/* {formatDistanceToNow(regularDeadline) + ' left'} */}
+              SOLD OUT
             </Typography>
           </div>
           <Typography
